@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Root element featureModel -->
+    <xs:element name="featureModel">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- featureModel can contain one or more 'feature' elements -->
+                <xs:element name="feature" type="featureType" maxOccurs="unbounded"/>
+                
+                <!-- Optional constraints section -->
+                <xs:element name="constraints" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- constraints can contain multiple 'constraint' elements -->
+                            <xs:element name="constraint" maxOccurs="unbounded" type="constraintType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- featureType: Defines a feature element, which can contain other feature elements (recursive) and group elements -->
+    <xs:complexType name="featureType">
+        <xs:sequence>
+            <!-- Nested features (recursive) -->
+            <xs:element name="feature" minOccurs="0" maxOccurs="unbounded" type="featureType"/>
+            
+            <!-- Groups (xor or or) -->
+            <xs:element name="group" minOccurs="0" maxOccurs="unbounded" type="groupType"/>
+        </xs:sequence>
+        
+        <!-- Attributes -->
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="mandatory" type="xs:boolean" default="false"/> <!-- Optional attribute, defaults to false -->
+    </xs:complexType>
+
+    <!-- groupType: Defines groups that can be of type "or" or "xor", containing feature elements -->
+    <xs:complexType name="groupType">
+        <xs:sequence>
+            <xs:element name="feature" minOccurs="1" maxOccurs="unbounded" type="featureType"/>
+        </xs:sequence>
+        
+        <!-- Type attribute for group (either 'or' or 'xor') -->
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!-- constraintType: Defines a constraint element with an optional englishStatement -->
+    <xs:complexType name="constraintType">
+        <xs:sequence>
+            <xs:element name="englishStatement" minOccurs="0" type="xs:string"/>
+            <xs:element name="booleanExpression" minOccurs="0" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

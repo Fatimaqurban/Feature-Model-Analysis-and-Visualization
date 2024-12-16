@@ -1,0 +1,31 @@
+<featureModel>
+    <feature name="search-engine">
+        <feature name="page-translation" mandatory="false"/>
+        <feature name="doc-type" mandatory="true">
+            <feature name="html" mandatory="true"/>
+            <feature name="image" mandatory="false">
+                <group type="xor">
+                    <feature name="gif"/>
+                    <feature name="svg"/>
+                </group>
+            </feature>
+            <feature name="video" mandatory="false"/>
+        </feature>
+        <feature name="search-by-lang" mandatory="false">
+            <group type="or">
+                <feature name="Spanish"/>
+                <feature name="English"/>
+                <feature name="French"/>
+            </group>
+        </feature>
+        <feature name="page-preview" mandatory="false"/>
+    </feature>
+    <constraints>
+        <constraint>
+            <englishStatement>If search-by-lang is selected, page-translation must be selected</englishStatement>
+        </constraint>
+        <constraint>
+            <englishStatement>If page-preview is selected, svg cannot be selected</englishStatement>
+        </constraint>
+    </constraints>
+</featureModel>
