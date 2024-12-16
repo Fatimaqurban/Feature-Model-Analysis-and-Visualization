@@ -22,7 +22,7 @@ A web-based tool for analyzing and visualizing feature models, built with Flask 
 
 1. Clone the repository:
    ```
-   git clone [repository-url]
+   git clone https://github.com/Fatimaqurban/Feature-Model-Analysis-and-Visualization.git
    ```
 
 2. Install required dependencies:
